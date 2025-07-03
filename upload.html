@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Terabox Video</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    .box {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      border-radius: 50px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    input, button, select {
+      width: 100%;
+      padding: 12px 0;
+      margin: 12px 0;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    input, select {
+      background: rgba(255,255,255,0.8);
+      color: #000;
+    }
+
+    button {
+      background: #00c6ff;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #005bea;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Upload Terabox Video</h2>
+    <input type="text" id="title" placeholder="Enter video title" />
+    <input type="text" id="link" placeholder="Paste Terabox video link" />
+    <select id="category">
+      <option value="">Select Category</option>
+      <option value="PW">PW</option>
+      <option value="NextTopper">Next Topper</option>
+    </select>
+    <select id="subject">
+      <option value="">Select Subject</option>
+      <option value="Maths">Maths</option>
+      <option value="English">English</option>
+      <option value="Hindi">Hindi</option>
+      <option value="Science">Science</option>
+      <option value="Physics">Physics</option>
+      <option value="Chemistry">Chemistry</option>
+      <option value="Biology">Biology</option>
+      <option value="History">History</option>
+      <option value="Civics">Civics</option>
+      <option value="Geography">Geography</option>
+      <option value="Economics">Economics</option>
+    </select>
+    <button onclick="uploadVideo()">🕷 Upload button 🕷</button>
+    <div id="status">📂 Waiting to upload...</div>
+  </div>
+
+  <script type="module">
+    // ✅ Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq5KBFJ47-2pK89Q_mL8LkSaFhm9QS9Uw",
+      authDomain: "infinite-learn-pw-nexttopper.firebaseapp.com",
+      projectId: "infinite-learn-pw-nexttopper",
+      storageBucket: "infinite-learn-pw-nexttopper.appspot.com",
+      messagingSenderId: "270549204154",
+      appId: "1:270549204154:web:da3559a03ec621394e1683"
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.uploadVideo = async function () {
+      const title = document.getElementById("title").value.trim();
+      let link = document.getElementById("link").value.trim();
+      const category = document.getElementById("category").value;
+      const subject = document.getElementById("subject").value;
+      const status = document.getElementById("status");
+
+      if (!title || !link || !category || !subject) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // ✅ Auto convert Google Drive link to embed preview
+      if (link.includes("drive.google.com") && link.includes("/view")) {
+        link = link.replace("/view", "/preview");
+      }
+
+      try {
+        await addDoc(collection(db, "videos"), {
+          title,
+          link,
+          category,
+          subject,
+          createdAt: serverTimestamp()
+        });
+
+        status.innerText = "✅ Video uploaded successfully!";
+        document.getElementById("title").value = "";
+        document.getElementById("link").value = "";
+        document.getElementById("category").value = "";
+        document.getElementById("subject").value = "";
+      } catch (e) {
+        console.error("Error uploading:", e);
+        status.innerText = "❌ Failed to upload.";
+      }
+    };
+  </script>
+</body>
+</html>

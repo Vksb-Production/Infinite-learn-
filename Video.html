@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Lecture Category</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    .logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 100%;
+}
+
+    .btn {
+      background: #00c6ff;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 0 15px #00e5ff;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #0072ff;
+    }
+    h1 {
+      color: black;
+      margin-bottom: 30px;
+      animation: fadeIn 2s ease-in-out;
+    }@keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+      
+    }
+  </style>
+</head>
+<body>
+  <header>
+     <img src="assets/logo.png" alt="Infinite Learn Logo" class="logo" />
+  </header>
+  <h1> 🏹🎓Infinite learn🎯 <br> Team VKSB <br> Choose Your Batch</h1>
+  <button class="btn" onclick="location.href='pw.html'">PW Lectures Study</button>
+  <button class="btn" onclick="location.href='nexttopper.html'">Next Topper Lectures Study</button>
+</body>
+</html>

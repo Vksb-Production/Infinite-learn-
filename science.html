@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Science Subjects - PW</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+ .logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 50%;
+     }
+     .btn {
+      background: #00c6ff;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 0 15px #00e5ff;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+
+    .btn:hover {
+      background: #0072ff;
+    }
+    
+    h1 {
+      color: black;
+      margin-bottom: 30px;animation: fadeIn 2s ease-in-out;
+    }@keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/PW.jpg" alt="PW Logo" class="logo" />
+  </header>
+  <h1>️🔬Science Subject</h1>
+  <h1>PW</h1>
+
+  <button class="btn" onclick="goToSubject('Physics')">⚛Physics⚛</button>
+  <button class="btn" onclick="goToSubject('Chemistry')">🧪Chemistry⚗️</button>
+  <button class="btn" onclick="goToSubject('Biology')">⚚Biology🧬</button>
+
+  <script>
+    function goToSubject(subject) {
+      const category = 'PW';
+      location.href = `lectures.html?category=${category}&subject=${subject}`;
+    }
+  </script>
+</body>
+</html>

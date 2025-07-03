@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lecture Videos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #00c6ff;
+      margin-bottom: 30px;
+    }
+
+    .video-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 10px;
+      border: none;
+    }
+
+    .title {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #00c6ff;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="pageTitle">🎥 Lecture Videos</h1>
+  <div class="video-list" id="videoList"></div>
+
+  <script type="module">
+    const firebaseConfig = {
+      apiKey: "AIzaSyAq5KBFJ47-2pK89Q_mL8LkSaFhm9QS9Uw",
+      authDomain: "infinite-learn-pw-nexttopper.firebaseapp.com",
+      projectId: "infinite-learn-pw-nexttopper",
+      storageBucket: "infinite-learn-pw-nexttopper.appspot.com",
+      messagingSenderId: "270549204154",
+      appId: "1:270549204154:web:da3559a03ec621394e1683"
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get("category") || "PW";
+    const subject = urlParams.get("subject") || "Physics";
+
+    document.getElementById("pageTitle").textContent = `🎬 ${subject} Lectures (${category})`;
+
+    const videoList = document.getElementById("videoList");
+
+    async function fetchVideos() {
+      const q = query(
+        collection(db, "videos"),
+        where("category", "==", category),
+        where("subject", "==", subject)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        videoList.innerHTML = "<p>❌ No videos found for this subject/category.</p>";
+        return;
+      }
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <iframe src="${data.link}" allowfullscreen></iframe>
+          <div class="title">${data.title}</div>
+        `;
+        videoList.appendChild(card);
+      });
+    }
+
+    fetchVideos();
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Next Topper Subjects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #1c1c1c, #243b55, #141e30);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+    h1  {
+      color:  #00BCA1;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: white;
+      margin-bottom: 30px;
+    }
+ .btn {
+      background: #00c6ff;
+      color: white;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 0 15px #00e5ff;
+      font-size: 18px;
+      margin: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #0072ff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/NextTopper.jpg" alt="Next Topper Logo" class="logo" />
+  </header>
+  <h1>  Next Topper </h1>
+  <h2>Aarambh batch Class 10</h2>
+
+  <button class="btn" onclick="goToSubject('History')">History</button>
+  <button class="btn" onclick="goToSubject('Civics')">Civics</button>
+  <button class="btn" onclick="goToSubject('Geography')">Geography</button>
+  <button class="btn" onclick="goToSubject('Economics')">Economics</button>
+
+  <script>
+    function goToSubject(subject) {
+      const category = 'NextTopper';
+      location.href = `lectures.html?category=${category}&subject=${subject}`;
+    }
+  </script>
+</body>
+</html>
